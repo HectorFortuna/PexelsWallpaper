@@ -8,6 +8,14 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\hectorfortuna\\AndroidStudioProjects\\PexelsWallpaper\\store\\pexels_appkey.jks')
+            storePassword '12345678'
+            keyAlias 'pexels-app'
+            keyPassword '12345678'
+        }
+    }
     namespace 'com.example.pexelswallpaper'
     compileSdk 33
 
@@ -20,13 +28,26 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "string", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
-        buildConfigField "string", "BASE_URL", "\"https://api.pexels.com/\""
+        buildConfigField "String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
+        buildConfigField "String", "BASE_URL", "\"https://api.pexels.com/\""
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
+        staging {
+            initWith debug
+            minifyEnabled true
+            applicationIdSuffix '.staging'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-rules-staging.pro'
+
+        }
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +57,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
