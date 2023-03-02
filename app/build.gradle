@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     namespace 'com.example.pexelswallpaper'
     compileSdk 33
@@ -15,6 +19,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "string", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
+        buildConfigField "string", "BASE_URL", "\"https://api.pexels.com/\""
     }
 
     buildTypes {
