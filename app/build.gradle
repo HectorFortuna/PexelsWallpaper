@@ -20,6 +20,7 @@ android {
             keyAlias 'pexels-app'
             keyPassword '12345678'
         }
+
     }
     namespace 'com.example.pexelswallpaper'
     compileSdk 33
