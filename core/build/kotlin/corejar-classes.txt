@@ -1,0 +1,1 @@
+C:\Users\hectorfortuna\AndroidStudioProjects\PexelsWallpaper\core\build\classes\kotlin\main\com\jikan\core\MyClass.class
